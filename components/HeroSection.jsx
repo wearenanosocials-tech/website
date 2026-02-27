@@ -38,7 +38,7 @@ export default function HeroSection() {
                 {/* Center Hub */}
                 <div className="absolute w-[180px] h-[180px] bg-black rounded-full top-1/2 left-1/2 flex items-center justify-center animate-pulse-hub z-[2]">
                     <Image
-                        src="http://nanosocials.com/wp-content/uploads/2025/12/Nano-Logo-Yellow.png"
+                        src="https://nanosocials.com/wp-content/uploads/2025/12/Nano-Logo-Yellow.png"
                         alt="Nano"
                         width={90}
                         height={90}
