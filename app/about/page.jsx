@@ -177,7 +177,7 @@ export default function AboutPage() {
                             <Reveal x={30} y={0}>
                                 <div className="relative h-full rounded-[32px] overflow-hidden shadow-lg group">
                                     <Image
-                                        src="/black-white-portrait-woman-chair-old-hollywood-glamour-style.jpg"
+                                        src="/black-white-portrait-woman-old-hollywood-glamour-style.jpg"
                                         alt="For Brands"
                                         fill
                                         className="object-cover transition-transform duration-700 group-hover:scale-110"
