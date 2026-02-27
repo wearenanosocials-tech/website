@@ -55,11 +55,11 @@ export default function Footer() {
                     <div className="flex flex-col items-start text-left">
                         <div className="mb-8">
                             <Image
-                                src="https://nanosocials.com/wp-content/uploads/2025/12/Nano-logoyyyyyFull-colour-1-scaled.png"
+                                src="/Nano logo (white).png"
                                 alt="Nano"
                                 width={200}
                                 height={50}
-                                className="w-[180px] h-auto object-contain brightness-0 invert"
+                                className="w-[180px] h-auto object-contain"
                                 unoptimized
                             />
                         </div>

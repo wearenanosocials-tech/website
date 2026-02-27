@@ -4,13 +4,56 @@ import { Reveal, StaggerContainer, StaggerItem, FadeIn } from '@/components/Moti
 import Image from 'next/image';
 
 export const metadata = {
-    title: 'Pricing & Fees | Nano Socials',
-    description: 'Transparent information about platform fees, creator commissions, and brand subscription tiers.',
+    title: "Pricing & Fees",
+    description:
+        "Simple, transparent pricing for brands and creators on Nano Socials. Campaign tiers from ₦30,000 to ₦120,000 per cycle — built to support the creator economy in Africa's emerging markets.",
+    alternates: { canonical: "https://nanosocials.com/pricing" },
+    openGraph: {
+        title: "Pricing & Fees | Nano Socials",
+        description: "Choose your campaign tier. Simple, fair pricing built for brands and creators in Africa's creator economy.",
+        url: "https://nanosocials.com/pricing",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Pricing" }],
+    },
+};
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+        {
+            "@type": "Question",
+            name: "How do creator tiers work on Nano Socials?",
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: "Tiers are determined by a combination of follower count, engagement rate, and audience quality — not just followers alone. There are 5 tiers: Emerging (₦30,000), Growing (₦45,000), Established (₦60,000), Top-tier (₦90,000), and Elite (₦120,000) per cycle.",
+            },
+        },
+        {
+            "@type": "Question",
+            name: "How much does it cost to run a campaign on Nano Socials?",
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: "Campaign costs start from ₦30,000 per cycle for nano and micro-influencers, scaling up to ₦120,000 per cycle for elite creators with massive reach and premium engagement.",
+            },
+        },
+        {
+            "@type": "Question",
+            name: "Is Nano Socials free for creators?",
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: "Creators can sign up and create a profile for free. Earnings are paid out securely through Nano's built-in fintech system.",
+            },
+        },
+    ],
 };
 
 export default function PricingPage() {
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Header />
             <main className="pt-[80px] bg-white">
 

@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { AppWindow, ShieldCheck, PieChart, Settings2, Info, ArrowRight, RefreshCcw } from 'lucide-react';
 
 export const metadata = {
-    title: 'Cookie Policy | Nano Socials',
-    description: 'Information about the cookies and tracking technologies used on the Nano platform.',
+    title: "Cookie Policy",
+    description: "Information about the cookies and tracking technologies Nano Socials uses — including essential, analytics, and functional cookies — and how to manage them.",
+    alternates: { canonical: "https://nanosocials.com/cookie-policy" },
+    openGraph: {
+        title: "Cookie Policy | Nano Socials",
+        description: "Understand how Nano Socials uses cookies to keep the platform secure and improve your experience.",
+        url: "https://nanosocials.com/cookie-policy",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Cookie Policy" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const sections = [

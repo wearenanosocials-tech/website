@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { ArrowRight, PenTool, Calendar, FileCheck, Megaphone, Users2, CopyX, BarChart3, Wallet, Info } from 'lucide-react';
 
 export const metadata = {
-    title: 'Creator Terms of Service | Nano Socials',
-    description: 'Terms and conditions for creators collaborating with brands on the Nano platform.',
+    title: "Creator Terms of Service",
+    description: "The Creator PACT — terms and conditions for nano-creators collaborating with brands on Nano Socials. Covers content standards, deadlines, legal disclosures, and payment release.",
+    alternates: { canonical: "https://nanosocials.com/creator-terms" },
+    openGraph: {
+        title: "Creator Terms of Service | Nano Socials",
+        description: "Read the Nano Socials Creator PACT — your guide to professional collaboration, content standards, and getting paid.",
+        url: "https://nanosocials.com/creator-terms",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Creator Terms" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const sections = [

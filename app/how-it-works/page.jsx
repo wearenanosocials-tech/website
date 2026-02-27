@@ -28,33 +28,76 @@ const JourneyStep = ({ step, index, color, isLast }) => {
     const isEven = index % 2 === 0;
 
     return (
-        <div className={`relative flex flex-col md:flex-row items-center gap-8 md:gap-16 mb-16 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+        <div className="relative mb-16">
             {/* Connecting Line (Desktop) */}
             {!isLast && (
                 <div className="hidden md:block absolute top-[60%] left-1/2 -translate-x-1/2 h-24 w-[2px] bg-black/10 z-0" />
             )}
 
-            {/* Visual/Number */}
-            <Reveal x={isEven ? -30 : 30} className="relative z-10">
+            {/* 3-column grid: left | center | right */}
+            <div className="hidden md:grid grid-cols-[1fr_auto_1fr] items-center gap-12">
+                {/* Left slot */}
+                <div className="flex justify-end">
+                    {isEven ? (
+                        <Reveal x={-40} className="text-left max-w-[380px]">
+                            <h3 className="text-[22px] md:text-[28px] font-black text-black leading-tight mb-2 tracking-[-1px]">
+                                {step.title}
+                            </h3>
+                            <p className="text-[15px] md:text-[16px] text-[#555] font-medium leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </Reveal>
+                    ) : (
+                        <div />
+                    )}
+                </div>
+
+                {/* Center: number circle */}
+                <Reveal className="relative z-10 flex-shrink-0">
+                    <div
+                        className="w-14 h-14 rounded-full flex items-center justify-center text-white font-black text-[20px] shadow-lg relative"
+                        style={{ backgroundColor: color }}
+                    >
+                        {index + 1}
+                        <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: color }} />
+                    </div>
+                </Reveal>
+
+                {/* Right slot */}
+                <div className="flex justify-start">
+                    {!isEven ? (
+                        <Reveal x={40} className="text-left max-w-[380px]">
+                            <h3 className="text-[22px] md:text-[28px] font-black text-black leading-tight mb-2 tracking-[-1px]">
+                                {step.title}
+                            </h3>
+                            <p className="text-[15px] md:text-[16px] text-[#555] font-medium leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </Reveal>
+                    ) : (
+                        <div />
+                    )}
+                </div>
+            </div>
+
+            {/* Mobile layout (stacked) */}
+            <div className="flex md:hidden flex-col items-center gap-4 text-center">
                 <div
                     className="w-14 h-14 rounded-full flex items-center justify-center text-white font-black text-[20px] shadow-lg relative"
                     style={{ backgroundColor: color }}
                 >
                     {index + 1}
-                    {/* Pulsing ring */}
                     <div className="absolute inset-0 rounded-full animate-ping opacity-20" style={{ backgroundColor: color }} />
                 </div>
-            </Reveal>
-
-            {/* Content */}
-            <Reveal x={isEven ? 30 : -30} className={`flex-1 text-center ${isEven ? 'md:text-left' : 'md:text-right'}`}>
-                <h3 className="text-[22px] md:text-[28px] font-black text-black leading-tight mb-2 tracking-[-1px]">
-                    {step.title}
-                </h3>
-                <p className={`text-[15px] md:text-[16px] text-[#555] font-medium leading-relaxed max-w-[400px] mx-auto ${isEven ? 'md:ml-0 md:mr-auto' : 'md:ml-auto md:mr-0'}`}>
-                    {step.desc}
-                </p>
-            </Reveal>
+                <div>
+                    <h3 className="text-[22px] font-black text-black leading-tight mb-2 tracking-[-1px]">
+                        {step.title}
+                    </h3>
+                    <p className="text-[15px] text-[#555] font-medium leading-relaxed max-w-[340px] mx-auto">
+                        {step.desc}
+                    </p>
+                </div>
+            </div>
 
             {/* Step Indicator arrow (Desktop) */}
             {!isLast && (

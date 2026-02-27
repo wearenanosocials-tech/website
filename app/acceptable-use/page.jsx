@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { ArrowRight, Ban, ShieldAlert, Gavel, Info } from 'lucide-react';
 
 export const metadata = {
-    title: 'Acceptable Use Policy | Nano Socials',
-    description: 'Guidelines on prohibited campaigns and content standards on the Nano platform.',
+    title: "Acceptable Use Policy",
+    description: "Nano Socials acceptable use policy — outlining prohibited campaign types including illegal products, hate speech, adult content, gambling, and misleading financial promotions.",
+    alternates: { canonical: "https://nanosocials.com/acceptable-use" },
+    openGraph: {
+        title: "Acceptable Use Policy | Nano Socials",
+        description: "Content and campaign standards on Nano Socials. What is and isn't allowed on our platform.",
+        url: "https://nanosocials.com/acceptable-use",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Acceptable Use Policy" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const sections = [

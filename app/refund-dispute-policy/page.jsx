@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { ArrowRight, ShieldCheck, Undo2, RefreshCcw, MessageSquare, ShieldAlert, CheckCircle2, XCircle, Info } from 'lucide-react';
 
 export const metadata = {
-    title: 'Refund & Dispute Policy | Nano Socials',
-    description: 'Guidelines for escrow payments, refund conditions, and dispute resolution on the Nano platform.',
+    title: "Refund & Dispute Policy",
+    description: "Nano Socials' escrow payment system, refund eligibility conditions, revision windows, and dispute resolution process — designed to protect both brands and creators.",
+    alternates: { canonical: "https://nanosocials.com/refund-dispute-policy" },
+    openGraph: {
+        title: "Refund & Dispute Policy | Nano Socials",
+        description: "How Nano Socials handles refunds, revision requests, and disputes between brands and creators through our secure escrow system.",
+        url: "https://nanosocials.com/refund-dispute-policy",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Refund & Dispute Policy" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const sections = [

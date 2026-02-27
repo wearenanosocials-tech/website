@@ -4,9 +4,27 @@ import { Reveal, StaggerContainer, StaggerItem, FadeIn } from '@/components/Moti
 import Image from 'next/image';
 
 export const metadata = {
-    title: 'About Nano | Nano Socials',
+    title: "About Nano",
     description:
-        'Nano is a creator collaboration platform helping brands and creators work together faster, test content at scale, and run performance-driven UGC campaigns.',
+        "Nano is a creator collaboration platform helping brands and creators work together faster, test content at scale, and run performance-driven UGC campaigns across Africa and emerging markets.",
+    alternates: { canonical: "https://nanosocials.com/about" },
+    openGraph: {
+        title: "About Nano | Nano Socials",
+        description: "Discover how Nano Socials is reimagining creator collaboration — empowering brands and authentic creators across Africa.",
+        url: "https://nanosocials.com/about",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "About Nano Socials" }],
+    },
+};
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": "https://nanosocials.com/about#webpage",
+    url: "https://nanosocials.com/about",
+    name: "About Nano Socials",
+    description: "Nano Socials is a UGC and influencer marketing platform built for Africa's creator economy. We connect brands with authentic nano-creators to run performance-driven campaigns at scale.",
+    isPartOf: { "@id": "https://nanosocials.com/#website" },
+    about: { "@id": "https://nanosocials.com/#organization" },
 };
 
 const brandFeatures = [
@@ -56,6 +74,10 @@ const differentiators = [
 export default function AboutPage() {
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Header />
             <main className="pt-[80px]">
 

@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { ArrowRight, Briefcase, CreditCard, Clock, Lock, ShieldX, Info } from 'lucide-react';
 
 export const metadata = {
-    title: 'Brand Terms of Service | Nano Socials',
-    description: 'Terms and conditions for brands collaborating with creators on the Nano platform.',
+    title: "Brand Terms of Service",
+    description: "The Brand PACT — terms and conditions for brands running campaigns on Nano Socials. Covers brief standards, pre-paid budgets, IP rights, timely reviews, and prohibited conduct.",
+    alternates: { canonical: "https://nanosocials.com/brand-terms" },
+    openGraph: {
+        title: "Brand Terms of Service | Nano Socials",
+        description: "Read the Nano Socials Brand PACT — your guide to running professional creator campaigns with full legal clarity.",
+        url: "https://nanosocials.com/brand-terms",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Brand Terms" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const sections = [

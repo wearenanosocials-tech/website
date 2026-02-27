@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { ArrowRight, Shield, Database, Activity, Share2, History, UserCheck, Mail, Info, Lock } from 'lucide-react';
 
 export const metadata = {
-    title: 'Privacy Policy | Nano Socials',
-    description: 'Guidelines on how Nano Socials collects, uses, and protects your personal data.',
+    title: "Privacy Policy",
+    description: "Learn how Nano Socials collects, uses, and protects your personal data. We are committed to NDPA-compliant data security for all users in Africa and beyond.",
+    alternates: { canonical: "https://nanosocials.com/privacy-policy" },
+    openGraph: {
+        title: "Privacy Policy | Nano Socials",
+        description: "Nano Socials is committed to protecting your privacy. Read our full data collection, usage, and rights policy.",
+        url: "https://nanosocials.com/privacy-policy",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Privacy Policy" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const sections = [

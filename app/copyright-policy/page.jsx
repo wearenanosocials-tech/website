@@ -4,8 +4,16 @@ import { Reveal, StaggerContainer, StaggerItem } from '@/components/Motion';
 import { ArrowRight, Mail, ShieldAlert, FileText, Scale } from 'lucide-react';
 
 export const metadata = {
-    title: 'Copyright & Intellectual Property Policy | Nano Socials',
-    description: 'Our commitment to protecting intellectual property and guidelines for copyright complaints.',
+    title: "Copyright & Intellectual Property Policy",
+    description: "Nano Socials intellectual property policy — covering creator content rights, how to file copyright complaints, repeat infringer policy, and platform IP protections.",
+    alternates: { canonical: "https://nanosocials.com/copyright-policy" },
+    openGraph: {
+        title: "Copyright & IP Policy | Nano Socials",
+        description: "Understand creator content rights, copyright complaint procedures, and Nano Socials' own IP protections.",
+        url: "https://nanosocials.com/copyright-policy",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Copyright Policy" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const policySections = [

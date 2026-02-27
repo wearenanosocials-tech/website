@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { ArrowRight, Wallet, Clock, CreditCard, AlertCircle, FileText, Info } from 'lucide-react';
 
 export const metadata = {
-    title: 'Creator Payout Policy | Nano Socials',
-    description: 'Guidelines and timelines for how creators receive payments on the Nano platform.',
+    title: "Creator Payout Policy",
+    description: "Understand how and when creators get paid on Nano Socials — from content approval to withdrawal via bank transfer or mobile money. Includes fee and tax information.",
+    alternates: { canonical: "https://nanosocials.com/creator-payout-policy" },
+    openGraph: {
+        title: "Creator Payout Policy | Nano Socials",
+        description: "Your complete guide to creator earnings, payment timelines, withdrawal methods, and fees on Nano Socials.",
+        url: "https://nanosocials.com/creator-payout-policy",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Creator Payout Policy" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const sections = [

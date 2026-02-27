@@ -8,8 +8,16 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-    title: 'Terms of Service | Nano Socials',
-    description: 'The master agreement governing your use of the Nano platform.',
+    title: "Terms of Service",
+    description: "The master agreement governing your use of the Nano Socials platform. Covers account registration, payments, content ownership, prohibited activities, and governing law (Nigeria).",
+    alternates: { canonical: "https://nanosocials.com/terms" },
+    openGraph: {
+        title: "Terms of Service | Nano Socials",
+        description: "Read the full Nano Socials Terms of Service — covering user responsibilities, payments, content rights, and platform rules.",
+        url: "https://nanosocials.com/terms",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Terms of Service" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const tosSections = [

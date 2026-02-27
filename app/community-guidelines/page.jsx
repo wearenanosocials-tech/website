@@ -4,8 +4,16 @@ import { Reveal } from '@/components/Motion';
 import { ArrowRight, HeartHandshake, ShieldCheck, Zap, AlertTriangle, Users } from 'lucide-react';
 
 export const metadata = {
-    title: 'Community Guidelines | Nano Socials',
-    description: 'Guidelines for respectful, professional, and authentic collaboration on the Nano platform.',
+    title: "Community Guidelines",
+    description: "Nano Socials community standards — covering respect, professionalism, authenticity, off-platform payments, and enforcement. Expected of all brands and creators on the platform.",
+    alternates: { canonical: "https://nanosocials.com/community-guidelines" },
+    openGraph: {
+        title: "Community Guidelines | Nano Socials",
+        description: "Our code of conduct for authentic, professional, and respectful collaboration between all Nano Socials users.",
+        url: "https://nanosocials.com/community-guidelines",
+        images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nano Socials Community Guidelines" }],
+    },
+    robots: { index: true, follow: false },
 };
 
 const guideSections = [
