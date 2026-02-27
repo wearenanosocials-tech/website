@@ -3,7 +3,7 @@ import { FadeIn, Reveal } from './Motion';
 
 const creators = [
     { name: ['GOODNESS', 'CHINEMELUM'], tier: 'New Creator', bio: 'Goodness breaks down complex startup trends in 60 seconds.', img: '/creators/IMG_3265.jpg' },
-    { name: ['KORAH', "NA'ADZENGA"], tier: 'Pro Creator', bio: 'Korah shares daily fitness tips and healthy meal preps.', img: '/creators/IMG_3354 (1).jpg' },
+    { name: ['KORAH', "NA'ADZENGA"], tier: 'Pro Creator', bio: 'Korah shares daily fitness tips and healthy meal preps.', img: '/creators/IMG_3354.jpg' },
     { name: ['JENNIFER', 'ENUJIUGHA'], tier: 'Expert', bio: 'Jennifer teaches coding and tech reviews for beginners.', img: '/creators/IMG_3361.jpg' },
     { name: ['SEGUN', 'AJEGUNLE'], tier: 'Influencer', bio: 'Segun explores hidden gems and travel destinations.', img: '/creators/IMG_3417.jpg' },
     { name: ['CHUX', 'OSAKWE'], tier: 'New Creator', bio: 'Chux captures the essence of street photography.', img: '/creators/IMG_3439.jpg' },
