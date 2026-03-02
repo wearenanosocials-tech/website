@@ -33,12 +33,11 @@ export default function Header() {
                         {/* Logo */}
                         <div className="flex-shrink-0 cursor-pointer transition-transform duration-300 hover:scale-[1.03]">
                             <Image
-                                src="https://nanosocials.com/wp-content/uploads/2025/12/Nano-logo-Black-scaled.png"
+                                src="/Nano logo BLACK.png"
                                 alt="Nano Logo"
                                 width={130}
                                 height={50}
                                 className="h-[50px] w-[130px] object-contain"
-                                unoptimized
                             />
                         </div>
 
