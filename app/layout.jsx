@@ -52,11 +52,7 @@ export const metadata = {
       "Brands launch missions. Creators earn for impact. Join the platform redefining authentic influence.",
     images: ["/og-image.jpg"],
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+
   robots: {
     index: true,
     follow: true,

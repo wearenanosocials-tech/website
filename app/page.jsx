@@ -63,9 +63,9 @@ export default function Home() {
             <Header />
             <main>
                 <HeroSection />
-                <WhyNano />
-                <CreatorScroll />
                 <DualCTA />
+                <CreatorScroll />
+                <WhyNano />
             </main>
             <Footer />
         </>
