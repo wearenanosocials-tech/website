@@ -173,9 +173,6 @@ export default function PricingPage() {
                                 <a href="https://app.nanosocials.com/signup" className="w-full md:w-auto px-12 py-5 rounded-full bg-black text-[#FFD600] font-black text-[18px] transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl">
                                     Launch Your Campaign
                                 </a>
-                                <a href="/contact" className="w-full md:w-auto px-12 py-5 rounded-full bg-black/5 border border-black/10 text-black font-black text-[18px] transition-all duration-300 hover:bg-black/10">
-                                    Talk to Sales
-                                </a>
                             </div>
                         </Reveal>
                     </div>

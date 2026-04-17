@@ -8,6 +8,7 @@ const navLinks = [
     { label: 'About Nano', href: '/about' },
     { label: 'How Nano Works', href: '/how-it-works' },
     { label: 'Pricing and Fees', href: '/pricing' },
+    { label: 'Blog', href: '/blog' },
 ];
 
 export default function Header() {

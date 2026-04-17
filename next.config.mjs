@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'nanosocials.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'nfjnzyqzxcerzqyvmlug.supabase.co',
+      },
     ],
   },
 };

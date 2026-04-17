@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const BASE_URL = "https://nanosocials.com";
@@ -79,6 +80,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="font-primary h-full bg-white text-[#333] overflow-x-hidden">
         {children}
+        <Toaster position="top-right" richColors closeButton />
       </body>
     </html>
   );

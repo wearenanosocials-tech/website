@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Reveal, StaggerContainer, StaggerItem, FadeIn } from '@/components/Motion';
+import ImpactReportSection from '@/components/ImpactReportSection';
 import Image from 'next/image';
 
 export const metadata = {
@@ -367,6 +368,7 @@ export default function AboutPage() {
                 </section>
 
             </main>
+            <ImpactReportSection />
             <Footer />
         </>
     );

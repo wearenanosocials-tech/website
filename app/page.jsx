@@ -2,8 +2,11 @@ import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import WhyNano from '@/components/WhyNano';
 import CreatorScroll from '@/components/CreatorScroll';
+import BrandMarquee from '@/components/BrandMarquee';
 import DualCTA from '@/components/DualCTA';
 import Footer from '@/components/Footer';
+import ImpactReportSection from '@/components/ImpactReportSection';
+import BlogSection from '@/components/BlogSection';
 
 export const metadata = {
     title: "Nano Socials — Where Brands Meet Authentic Creators",
@@ -65,8 +68,11 @@ export default function Home() {
                 <HeroSection />
                 <DualCTA />
                 <CreatorScroll />
+                <BrandMarquee />
                 <WhyNano />
             </main>
+            <BlogSection />
+            <ImpactReportSection />
             <Footer />
         </>
     );

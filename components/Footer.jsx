@@ -112,6 +112,13 @@ export default function Footer() {
                         © 2025 Nano Socials. All rights reserved.
                     </p>
                     <div className="flex items-center gap-8">
+                        <a 
+                            href="/Updated Nano Creator Impact Report -March 2026.pdf" 
+                            download
+                            className="text-[13px] font-black text-[#FFD600] uppercase tracking-wider hover:opacity-80 transition-opacity"
+                        >
+                            Impact Report
+                        </a>
                         <a href="https://app.nanosocials.com/signin" className="text-[13px] font-black text-[#FFD600] uppercase tracking-wider hover:opacity-80 transition-opacity">
                             Brand Portal
                         </a>
