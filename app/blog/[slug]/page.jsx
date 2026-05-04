@@ -23,7 +23,7 @@ export default async function BlogPost({ params: paramsPromise }) {
     // We only allow viewing if it's published or if it was scheduled and the time has passed
     const { data: post, error } = await supabase
         .from('posts')
-        .select('*, categories(name)')
+        .select('*, categories(name), authors(*)')
         .eq('slug', slug)
         .or('status.eq.published,and(status.eq.scheduled,published_at.lte.now())')
         .single();
@@ -31,6 +31,8 @@ export default async function BlogPost({ params: paramsPromise }) {
     if (error || !post) {
         notFound();
     }
+
+    const author = post.authors || { name: post.author_name || 'Nano Team' };
 
     return (
         <>
@@ -59,12 +61,18 @@ export default async function BlogPost({ params: paramsPromise }) {
                             </Reveal>
                             <Reveal delay={0.4} y={30}>
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white text-[14px] font-black uppercase">
-                                        {post.author_name?.substring(0, 2) || 'NT'}
+                                    <div className="relative w-12 h-12 rounded-full overflow-hidden bg-black flex items-center justify-center text-white text-[14px] font-black uppercase shadow-xl">
+                                        {author.image_url ? (
+                                            <Image src={author.image_url} alt={author.name} fill className="object-cover" />
+                                        ) : (
+                                            author.name?.substring(0, 2) || 'NT'
+                                        )}
                                     </div>
                                     <div>
-                                        <p className="text-[16px] font-bold text-black">{post.author_name}</p>
-                                        <p className="text-[14px] text-black/40 font-medium tracking-tight">Nano Impact Writer</p>
+                                        <p className="text-[16px] font-black text-black">{author.name}</p>
+                                        <p className="text-[14px] text-black/40 font-medium tracking-tight">
+                                            {author.bio || 'Nano Impact Writer'}
+                                        </p>
                                     </div>
                                 </div>
                             </Reveal>

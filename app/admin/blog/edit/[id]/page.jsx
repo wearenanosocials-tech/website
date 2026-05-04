@@ -10,6 +10,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import TiptapEditor from '@/components/admin/TiptapEditor';
+import AuthorManagementModal from '@/components/admin/AuthorManagementModal';
+import { User } from 'lucide-react';
 
 export default function EditBlogPost({ params: paramsPromise }) {
     const params = use(paramsPromise);
@@ -20,6 +22,8 @@ export default function EditBlogPost({ params: paramsPromise }) {
     const [saving, setSaving] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [authors, setAuthors] = useState([]);
+    const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         slug: '',
@@ -27,44 +31,47 @@ export default function EditBlogPost({ params: paramsPromise }) {
         content: '',
         image_url: '',
         category_id: '',
-        author_name: 'Nano Team',
+        author_id: '',
         status: 'published',
         published_at: new Date().toISOString().slice(0, 16),
     });
 
+    const fetchData = async () => {
+        setLoading(true);
+        const [postRes, catsRes, authorsRes] = await Promise.all([
+            supabase.from('posts').select('*').eq('id', id).single(),
+            supabase.from('categories').select('*'),
+            supabase.from('authors').select('*').order('name')
+        ]);
+
+        if (catsRes.data) setCategories(catsRes.data);
+        if (authorsRes.data) setAuthors(authorsRes.data);
+        
+        if (postRes.error) {
+            toast.error('Could not find post');
+            router.push('/admin/blog');
+            return;
+        }
+
+        if (postRes.data) {
+            setFormData({
+                title: postRes.data.title || '',
+                slug: postRes.data.slug || '',
+                excerpt: postRes.data.excerpt || '',
+                content: postRes.data.content || '',
+                image_url: postRes.data.image_url || '',
+                category_id: postRes.data.category_id || '',
+                author_id: postRes.data.author_id || '',
+                status: postRes.data.status || 'published',
+                published_at: postRes.data.published_at 
+                    ? new Date(postRes.data.published_at).toISOString().slice(0, 16) 
+                    : new Date().toISOString().slice(0, 16),
+            });
+        }
+        setLoading(false);
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const [postRes, catsRes] = await Promise.all([
-                supabase.from('posts').select('*').eq('id', id).single(),
-                supabase.from('categories').select('*')
-            ]);
-
-            if (catsRes.data) setCategories(catsRes.data);
-            
-            if (postRes.error) {
-                toast.error('Could not find post');
-                router.push('/admin/blog');
-                return;
-            }
-
-            if (postRes.data) {
-                setFormData({
-                    title: postRes.data.title || '',
-                    slug: postRes.data.slug || '',
-                    excerpt: postRes.data.excerpt || '',
-                    content: postRes.data.content || '',
-                    image_url: postRes.data.image_url || '',
-                    category_id: postRes.data.category_id || '',
-                    author_name: postRes.data.author_name || 'Nano Team',
-                    status: postRes.data.status || 'published',
-                    published_at: postRes.data.published_at 
-                        ? new Date(postRes.data.published_at).toISOString().slice(0, 16) 
-                        : new Date().toISOString().slice(0, 16),
-                });
-            }
-            setLoading(false);
-        };
         fetchData();
     }, [id, router]);
 
@@ -234,6 +241,29 @@ export default function EditBlogPost({ params: paramsPromise }) {
                             <TiptapEditor 
                                 content={formData.content}
                                 onChange={(html) => setFormData(prev => ({ ...prev, content: html }))}
+                                onImageUpload={async (file) => {
+                                    try {
+                                        const fileExt = file.name.split('.').pop();
+                                        const fileName = `inline-${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+                                        const filePath = `${fileName}`;
+
+                                        const { error: uploadError } = await supabase.storage
+                                            .from('blog-images')
+                                            .upload(filePath, file);
+
+                                        if (uploadError) throw uploadError;
+
+                                        const { data: { publicUrl } } = supabase.storage
+                                            .from('blog-images')
+                                            .getPublicUrl(filePath);
+
+                                        return publicUrl;
+                                    } catch (error) {
+                                        console.error('Inline upload error:', error);
+                                        toast.error('Failed to upload inline image.');
+                                        return null;
+                                    }
+                                }}
                             />
                         </div>
                     </div>
@@ -291,13 +321,29 @@ export default function EditBlogPost({ params: paramsPromise }) {
                         )}
 
                         <div>
-                            <label className="text-[11px] font-black text-gray-400 block mb-1.5">Author</label>
-                            <input 
-                                type="text"
-                                value={formData.author_name}
-                                onChange={(e) => setFormData(prev => ({ ...prev, author_name: e.target.value }))}
-                                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-[13px] font-bold text-gray-700 focus:outline-none"
-                            />
+                            <div className="flex items-center justify-between mb-1.5">
+                                <label className="text-[11px] font-black text-gray-400">Author</label>
+                                <button 
+                                    type="button"
+                                    onClick={() => setIsAuthorModalOpen(true)}
+                                    className="text-[10px] font-black text-[#FFD600] hover:underline"
+                                >
+                                    Manage
+                                </button>
+                            </div>
+                            <div className="relative">
+                                <select 
+                                    value={formData.author_id}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, author_id: e.target.value }))}
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-[13px] font-bold text-gray-700 focus:outline-none appearance-none cursor-pointer"
+                                >
+                                    <option value="">Select author</option>
+                                    {authors.map(author => (
+                                        <option key={author.id} value={author.id}>{author.name}</option>
+                                    ))}
+                                </select>
+                                <ChevronLeft className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 rotate-270 pointer-events-none" />
+                            </div>
                         </div>
                     </div>
 
@@ -353,6 +399,12 @@ export default function EditBlogPost({ params: paramsPromise }) {
                     </div>
                 </div>
             </form>
+
+            <AuthorManagementModal 
+                isOpen={isAuthorModalOpen} 
+                onClose={() => setIsAuthorModalOpen(false)} 
+                onUpdate={fetchData} 
+            />
         </div>
     );
 }

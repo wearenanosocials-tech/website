@@ -17,7 +17,7 @@ export default async function BlogIndex() {
     // Logic: (status is published) OR (status is scheduled AND published_at <= now)
     const { data: posts, error } = await supabase
         .from('posts')
-        .select('*, categories(name)')
+        .select('*, categories(name), authors(*)')
         .or('status.eq.published,and(status.eq.scheduled,published_at.lte.now())')
         .order('published_at', { ascending: false });
 
@@ -89,7 +89,7 @@ export default async function BlogIndex() {
                                                     })}
                                                 </span>
                                                 <span className="w-1 h-1 rounded-full bg-black/20" />
-                                                <span className="text-[13px] text-black/50 font-bold">{post.author_name}</span>
+                                                <span className="text-[13px] text-black/50 font-bold">{post.authors?.name || post.author_name}</span>
                                             </div>
                                             <h2 className="text-[24px] md:text-[28px] font-black text-black leading-tight tracking-[-0.5px] group-hover:text-[#c55530] transition-colors">
                                                 {post.title}

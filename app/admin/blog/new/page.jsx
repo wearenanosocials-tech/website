@@ -10,6 +10,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import TiptapEditor from '@/components/admin/TiptapEditor';
+import AuthorManagementModal from '@/components/admin/AuthorManagementModal';
+import { User } from 'lucide-react';
 
 export default function NewBlogPost() {
     const router = useRouter();
@@ -17,6 +19,8 @@ export default function NewBlogPost() {
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [authors, setAuthors] = useState([]);
+    const [isAuthorModalOpen, setIsAuthorModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         slug: '',
@@ -24,18 +28,31 @@ export default function NewBlogPost() {
         content: '',
         image_url: '',
         category_id: '',
-        author_name: 'Nano Team',
+        author_id: '',
         status: 'published',
-        published_at: new Date().toISOString().slice(0, 16), // Format for datetime-local
+        published_at: new Date().toISOString().slice(0, 16),
     });
 
     useEffect(() => {
-        const fetchCategories = async () => {
-            const { data } = await supabase.from('categories').select('*');
-            if (data) setCategories(data);
-        };
-        fetchCategories();
+        fetchData();
     }, []);
+
+    const fetchData = async () => {
+        const [catsRes, authorsRes] = await Promise.all([
+            supabase.from('categories').select('*'),
+            supabase.from('authors').select('*').order('name')
+        ]);
+        
+        if (catsRes.data) setCategories(catsRes.data);
+        if (authorsRes.data) {
+            setAuthors(authorsRes.data);
+            // Default to 'Nano Team' if it exists and no author is selected
+            if (!formData.author_id && authorsRes.data.length > 0) {
+                const nanoTeam = authorsRes.data.find(a => a.name === 'Nano Team');
+                if (nanoTeam) setFormData(prev => ({ ...prev, author_id: nanoTeam.id }));
+            }
+        }
+    };
 
     const handleTitleChange = (e) => {
         const title = e.target.value;
@@ -190,6 +207,29 @@ export default function NewBlogPost() {
                             <TiptapEditor 
                                 content={formData.content}
                                 onChange={(html) => setFormData(prev => ({ ...prev, content: html }))}
+                                onImageUpload={async (file) => {
+                                    try {
+                                        const fileExt = file.name.split('.').pop();
+                                        const fileName = `inline-${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+                                        const filePath = `${fileName}`;
+
+                                        const { error: uploadError } = await supabase.storage
+                                            .from('blog-images')
+                                            .upload(filePath, file);
+
+                                        if (uploadError) throw uploadError;
+
+                                        const { data: { publicUrl } } = supabase.storage
+                                            .from('blog-images')
+                                            .getPublicUrl(filePath);
+
+                                        return publicUrl;
+                                    } catch (error) {
+                                        console.error('Inline upload error:', error);
+                                        toast.error('Failed to upload inline image.');
+                                        return null;
+                                    }
+                                }}
                             />
                         </div>
                     </div>
@@ -247,13 +287,29 @@ export default function NewBlogPost() {
                         )}
 
                         <div>
-                            <label className="text-[11px] font-black text-gray-400 block mb-1.5">Author</label>
-                            <input 
-                                type="text"
-                                value={formData.author_name}
-                                onChange={(e) => setFormData(prev => ({ ...prev, author_name: e.target.value }))}
-                                className="w-full bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-[13px] font-bold text-gray-700 focus:outline-none"
-                            />
+                            <div className="flex items-center justify-between mb-1.5">
+                                <label className="text-[11px] font-black text-gray-400">Author</label>
+                                <button 
+                                    type="button"
+                                    onClick={() => setIsAuthorModalOpen(true)}
+                                    className="text-[10px] font-black text-[#FFD600] hover:underline"
+                                >
+                                    Manage
+                                </button>
+                            </div>
+                            <div className="relative">
+                                <select 
+                                    value={formData.author_id}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, author_id: e.target.value }))}
+                                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-3 py-2.5 text-[13px] font-bold text-gray-700 focus:outline-none appearance-none cursor-pointer"
+                                >
+                                    <option value="">Select author</option>
+                                    {authors.map(author => (
+                                        <option key={author.id} value={author.id}>{author.name}</option>
+                                    ))}
+                                </select>
+                                <ChevronLeft className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 rotate-270 pointer-events-none" />
+                            </div>
                         </div>
                     </div>
 
@@ -309,6 +365,12 @@ export default function NewBlogPost() {
                     </div>
                 </div>
             </form>
+
+            <AuthorManagementModal 
+                isOpen={isAuthorModalOpen} 
+                onClose={() => setIsAuthorModalOpen(false)} 
+                onUpdate={fetchData} 
+            />
         </div>
     );
 }

@@ -3,9 +3,12 @@
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
+import ImageExtension from '@tiptap/extension-image';
+import Placeholder from '@tiptap/extension-placeholder';
+import { useRef } from 'react';
 import { 
     Bold, Italic, List, ListOrdered, Heading2, Heading3, Undo, Redo, 
-    Link as LinkIcon, Unlink
+    Link as LinkIcon, Unlink, Image as ImageIcon, Loader2, Trash2
 } from 'lucide-react';
 
 const MenuButton = ({ onClick, isActive, disabled, children, title }) => (
@@ -21,7 +24,8 @@ const MenuButton = ({ onClick, isActive, disabled, children, title }) => (
     </button>
 );
 
-export default function TiptapEditor({ content, onChange }) {
+export default function TiptapEditor({ content, onChange, onImageUpload }) {
+    const fileInputRef = useRef(null);
     const editor = useEditor({
         immediatelyRender: false,
         extensions: [
@@ -31,6 +35,15 @@ export default function TiptapEditor({ content, onChange }) {
                 HTMLAttributes: {
                     class: 'text-[#FFD600] underline underline-offset-4 font-bold',
                 },
+            }),
+            ImageExtension.configure({
+                HTMLAttributes: {
+                    class: 'rounded-2xl border border-gray-100 shadow-lg my-8 max-w-full h-auto cursor-pointer hover:ring-2 hover:ring-[#FFD600] transition-all',
+                },
+            }),
+            Placeholder.configure({
+                placeholder: 'Start writing your story...',
+                emptyEditorClass: 'is-editor-empty',
             }),
         ],
         content: content,
@@ -53,8 +66,42 @@ export default function TiptapEditor({ content, onChange }) {
         }
     };
 
+    const addImage = () => {
+        fileInputRef.current?.click();
+    };
+
+    const deleteImage = () => {
+        editor.chain().focus().deleteSelection().run();
+    };
+
+    const handleFileChange = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file || !onImageUpload) return;
+
+        try {
+            const url = await onImageUpload(file);
+            if (url) {
+                editor.chain().focus().setImage({ src: url }).run();
+            }
+        } catch (error) {
+            console.error('Editor image upload error:', error);
+        } finally {
+            // Reset input
+            if (fileInputRef.current) fileInputRef.current.value = '';
+        }
+    };
+
     return (
         <div className="space-y-4">
+            {/* Hidden File Input */}
+            <input 
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                accept="image/*"
+                className="hidden"
+            />
+
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-1 bg-gray-50/50 p-1.5 rounded-xl border border-gray-100">
                 <MenuButton 
@@ -98,6 +145,20 @@ export default function TiptapEditor({ content, onChange }) {
                     isActive={editor.isActive('orderedList')}
                 >
                     <ListOrdered className="w-4 h-4" />
+                </MenuButton>
+
+                <div className="w-px h-4 bg-gray-200 mx-1" />
+
+                <MenuButton onClick={addImage} title="Add Image">
+                    <ImageIcon className="w-4 h-4" />
+                </MenuButton>
+
+                <MenuButton 
+                    onClick={deleteImage} 
+                    title="Remove Selected Image"
+                    disabled={!editor.isActive('image')}
+                >
+                    <Trash2 className={`w-4 h-4 ${editor.isActive('image') ? 'text-red-500' : ''}`} />
                 </MenuButton>
 
                 <div className="w-px h-4 bg-gray-200 mx-1" />

@@ -17,6 +17,7 @@ const navItems = [
     { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { label: 'Blog Posts', href: '/admin/blog', icon: FileText },
     { label: 'Categories', href: '/admin/categories', icon: Tags },
+    { label: 'Authors', href: '/admin/authors', icon: Users },
     { label: 'Impact Report', href: '/admin/impact-report', icon: BarChart2 },
     { label: 'Staff Management', href: '/admin/users', icon: Users },
 ];
